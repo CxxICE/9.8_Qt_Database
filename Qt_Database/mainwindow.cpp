@@ -108,15 +108,18 @@ void MainWindow::on_pb_request_clicked()
 	QString queryMode = ui->cb_category->currentText();
 	if (queryMode == "Все")
 	{
-		dataBase->RequestToDB(RequestType::kRequestAllFilms);
+		auto task = [&](){dataBase->RequestToDB(RequestType::kRequestAllFilms);};
+		auto f = QtConcurrent::run(task);
 	}
 	else if (queryMode == "Комедии")
 	{
-		dataBase->RequestToDB(RequestType::kRequestComedy);
+		auto task = [&](){dataBase->RequestToDB(RequestType::kRequestComedy);};
+		auto f = QtConcurrent::run(task);
 	}
 	else if (queryMode == "Ужасы")
 	{
-		dataBase->RequestToDB(RequestType::kRequestHorrors);
+		auto task = [&](){dataBase->RequestToDB(RequestType::kRequestHorrors);;};
+		auto f = QtConcurrent::run(task);
 	}
 
 }
