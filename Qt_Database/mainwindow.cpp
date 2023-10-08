@@ -134,6 +134,7 @@ void MainWindow::ScreenDataFromDB(QSqlQueryModel *model)
 	//int numColumns = model->columnCount();
 	//qDebug() << numColumns;
 	ui->tb_result->setModel(model);
+	ui->tb_result->setSortingEnabled(true);
 	model->setHeaderData(0,Qt::Horizontal, tr("Название фильма"));
 	model->setHeaderData(1,Qt::Horizontal, tr("Описание фильма"));
 
