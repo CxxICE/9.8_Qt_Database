@@ -12,6 +12,7 @@ DataBase::DataBase(QObject *parent)
 DataBase::~DataBase()
 {
     delete dataBase;
+	delete tModel;
 }
 
 /*!
@@ -46,12 +47,12 @@ void DataBase::ConnectToDataBase(QVector<QString> data)
 	{
 		if(tModel == nullptr)
 		{
-			tModel = new QSqlTableModel(this, *dataBase);
+			tModel = new QSqlTableModel(nullptr, *dataBase);
 		}
 		else
 		{
 			delete tModel;
-			tModel = new QSqlTableModel(this, *dataBase);
+			tModel = new QSqlTableModel(nullptr, *dataBase);
 		}
 	}
     emit sig_SendStatusConnection(status);
@@ -65,7 +66,8 @@ void DataBase::DisconnectFromDataBase(QString nameDb)
 
     *dataBase = QSqlDatabase::database(nameDb);
     dataBase->close();
-
+	delete tModel;
+	tModel = nullptr;
 }
 /*!
  * \brief Метод формирует запрос к БД.
